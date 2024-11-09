@@ -11,10 +11,14 @@ const server = http.createServer((req, res) => {
 
     } else if(req.url === '/contacto' && req.method == 'GET') {
         response.writeHeader(200, {"Content-Type": "text/html"});  
+        // responder con contacto.html
 
     } else if(req.url === '/contacto' && req.method == 'POST'){
         response.writeHeader(200, {"Content-Type": "text/html"});  
-        
+        // obtener los datos del formulario ,mostrarlos en consola y en gracias.html
+
+        // responder con gracias.html
+
     }else {
         response.writeHeader(200, {"Content-Type": "text/html"});  
         res.send('Pagina')
