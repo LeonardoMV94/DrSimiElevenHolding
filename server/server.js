@@ -1,4 +1,4 @@
-const http =  require('node:http')
+const http = require('node:http')
 const path = require('node:path')
 const fs = require('node:fs').promises; //modif por Jrejas
 
@@ -6,34 +6,34 @@ const PORT = 3000
 
 const server = http.createServer((req, res) => {
 
-    if(req.url == '/'){
-        res.writeHeader(200, {"Content-Type": "text/html"});  
+    if (req.url == '/') {
+        res.writeHeader(200, { "Content-Type": "text/html" });
 
-    } else if(req.url === '/contacto' && req.method == 'GET') {
+    } else if (req.url === '/contacto' && req.method == 'GET') {
         const filepath = path.join(__dirname, '..', 'client', 'contacto.html');
         fs.readFile(filepath)
-        .then(contenido => {
-            res.setHeader("Content-Type", "text/html");
-            res.writeHead(200);
-            res.end(contenido);
-        })
-        .catch(err => {
-            res.writeHead(500);
-            res.end(err);
-            return;
-        });
-        
-    } else if(req.url === '/contacto' && req.method == 'POST'){
+            .then(contenido => {
+                res.setHeader("Content-Type", "text/html");
+                res.writeHead(200);
+                res.end(contenido);
+            })
+            .catch(err => {
+                res.writeHead(500);
+                res.end(err);
+                return;
+            });
+
+    } else if (req.url === '/contacto' && req.method == 'POST') {
         recuperar(req, res);
-        
+
 
         //res.writeHeader(200, {"Content-Type": "text/html"});  
         // obtener los datos del formulario ,mostrarlos en consola y en gracias.html
 
         // responder con gracias.html
 
-    }else {
-        res.writeHeader(200, {"Content-Type": "text/html"});  
+    } else {
+        res.writeHeader(200, { "Content-Type": "text/html" });
         //res.send('Pagina')
     }
 
@@ -47,16 +47,16 @@ server.listen(PORT, () => {
 function recuperar(pedido, respuesta) {
     let info = ''
     pedido.on('data', datosparciales => {
-      info += datosparciales
+        info += datosparciales
     })
     pedido.on('end', () => {
-      const formulario = new URLSearchParams(info)
-      console.log(`Nombre: ${formulario.get('nombre')} Email: ${formulario.get('mail')}`)
+        const formulario = new URLSearchParams(info)
+        console.log(`Nombre: ${formulario.get('nombre')} Email: ${formulario.get('mail')}`)
 
- 
-      respuesta.writeHead(200, { 'Content-Type': 'text/html' })
-      const pagina =
-       `    <!DOCTYPE html>
+
+        respuesta.writeHead(200, { 'Content-Type': 'text/html' })
+        const pagina =
+            `    <!DOCTYPE html>
     <head>
         <title>Gracias</title>
         <style>
@@ -102,8 +102,8 @@ function recuperar(pedido, respuesta) {
         </div>
     </body>
 </html>`;
-        
-        
-      respuesta.end(pagina);
-    });   
+
+
+        respuesta.end(pagina);
+    });
 }
