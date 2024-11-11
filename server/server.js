@@ -3,18 +3,26 @@ const path = require('node:path')
 const fs = require('node:fs').promises; //modif por Jrejas
 
 const PORT = 3000
+const indexPath = path.join(__dirname,'..', 'client','index.html');
+const contactPath = path.join(__dirname, '..', 'client', 'contacto.html');
+const notFoundPath = path.join(__dirname, '..', 'client', '404.html');
+const server = http.createServer(async(req, res) => {
 
-const server = http.createServer((req, res) => {
-
-    if (req.url == '/') {
-        res.writeHeader(200, { "Content-Type": "text/html" });
-
-    } else if (req.url === '/contacto' && req.method == 'GET') {
-        const filepath = path.join(__dirname, '..', 'client', 'contacto.html');
-        fs.readFile(filepath)
+    if (req.url == '/' || req.url == '/index.html') {
+        res.writeHead(200, { "Content-Type": "text/html" });
+        
+        fs.readFile(indexPath)
+            .then(response => {
+                res.end(response);
+            })
+            .catch(err => {
+                res.end("No se encuentra index");
+            });
+    } else if (req.url === '/contacto' || req.url === '/contacto.html' && req.method == 'GET') {
+        
+        fs.readFile(contactPath)
             .then(contenido => {
-                res.setHeader("Content-Type", "text/html");
-                res.writeHead(200);
+                res.writeHead(200,{"Content-Type": "text/html"});
                 res.end(contenido);
             })
             .catch(err => {
@@ -23,7 +31,7 @@ const server = http.createServer((req, res) => {
                 return;
             });
 
-    } else if (req.url === '/contacto' && req.method == 'POST') {
+    } else if (req.url === '/contacto' || req.url === '/contacto.html' && req.method == 'POST') {
         recuperar(req, res);
 
 
@@ -33,8 +41,8 @@ const server = http.createServer((req, res) => {
         // responder con gracias.html
 
     } else {
-        res.writeHeader(200, { "Content-Type": "text/html" });
-        //res.send('Pagina')
+        res.writeHeader(200, { "Content-Type": "text/html" });        
+       fs.readFile(notFoundPath).then(r => res.end(r))
     }
 
 })
