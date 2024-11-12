@@ -18,8 +18,19 @@ const server = http.createServer(async(req, res) => {
             .catch(err => {
                 res.end("No se encuentra index");
             });
-    } else if (req.url === '/contacto' || req.url === '/contacto.html' && req.method == 'GET') {
+    }  else if ((req.url === '/contacto' || req.url === '/contacto.html') && req.method === 'POST') {        
+        console.log('POST contacto')
+        recuperar(req, res);
         
+        
+
+        //res.writeHeader(200, {"Content-Type": "text/html"});  
+        // obtener los datos del formulario ,mostrarlos en consola y en gracias.html
+
+        // responder con gracias.html
+
+    } else if ((req.url === '/contacto' || req.url === '/contacto.html') && req.method === 'GET') {
+        console.log('GET contacto')
         fs.readFile(contactPath)
             .then(contenido => {
                 res.writeHead(200,{"Content-Type": "text/html"});
@@ -31,16 +42,7 @@ const server = http.createServer(async(req, res) => {
                 return;
             });
 
-    } else if (req.url === '/contacto' || req.url === '/contacto.html' && req.method == 'POST') {
-        recuperar(req, res);
-
-
-        //res.writeHeader(200, {"Content-Type": "text/html"});  
-        // obtener los datos del formulario ,mostrarlos en consola y en gracias.html
-
-        // responder con gracias.html
-
-    } else {
+    }else {
         res.writeHeader(200, { "Content-Type": "text/html" });        
        fs.readFile(notFoundPath).then(r => res.end(r))
     }
@@ -52,66 +54,69 @@ server.listen(PORT, () => {
 })
 
 
-function recuperar(pedido, respuesta) {
+function recuperar(request, response) {
     let info = ''
-    pedido.on('data', datosparciales => {
+    request.on('data', datosparciales => {
+        console.log(datosparciales)
         info += datosparciales
     })
-    pedido.on('end', () => {
+    request.on('end', () => {
         const formulario = new URLSearchParams(info)
-        console.log(`Nombre: ${formulario.get('nombre')} Email: ${formulario.get('mail')}`)
+        console.log("formulario : " + formulario)
+        console.log(`Nombre: ${formulario.get('nombre')} Email: ${formulario.get('email')} Mensaje: ${formulario.get('mensaje')}`)
+        console.log('HOla')
 
-
-        respuesta.writeHead(200, { 'Content-Type': 'text/html' })
+        response.writeHead(200, { 'Content-Type': 'text/html' })
         const pagina =
             `    <!DOCTYPE html>
-    <head>
-        <title>Gracias</title>
-        <style>
-            html {
-                margin: 0;
-                padding: 0;
-                border: 0;
-            }
-            html {
-                width: 100%;
-                height: 100%;
-            }
-            body {
-                width: 100%;
-                height: 100%;
-                position: relative;
-                background-color: rgb(236, 152, 42);
-            }
-            .center {
-                width: 100%;
-                height: 50%;
-                margin: 0;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                color: white;
-                font-family: "Trebuchet MS", Helvetica, sans-serif;
-                text-align: center;
-            }
-            h1 {
-                font-size: 40px;
-            }
-            p {
-                font-size: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="center">
-            <h1>Gracias ${formulario.get('nombre')} por comunicarse con el Grupo Eleven Holding</h1>
-            <p>Hemos enviado un correo electronico a ${formulario.get('mail')} con promociones exclusivas</p>
-        </div>
-    </body>
-</html>`;
+                    <head>
+                        <title>Gracias</title>
+                        <style>
+                            html {
+                                margin: 0;
+                                padding: 0;
+                                border: 0;
+                            }
+                            html {
+                                width: 100%;
+                                height: 100%;
+                            }
+                            body {
+                                width: 100%;
+                                height: 100%;
+                                position: relative;
+                                background-color: rgb(236, 152, 42);
+                            }
+                            .center {
+                                width: 100%;
+                                height: 50%;
+                                margin: 0;
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                color: white;
+                                font-family: "Trebuchet MS", Helvetica, sans-serif;
+                                text-align: center;
+                            }
+                            h1 {
+                                font-size: 40px;
+                            }
+                            p {
+                                font-size: 30px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="center">
+                            <h1>Gracias ${formulario.get('nombre')} por comunicarse con el Grupo Eleven Holding</h1>
+                            <p>Hemos enviado un correo electronico a ${formulario.get('email')} con promociones exclusivas</p>
+                            <p>Con el mensaje: ${formulario.get('mensaje')}</p>
+                        </div>
+                    </body>
+                </html>`;
 
 
-        respuesta.end(pagina);
+        response.end(pagina);
     });
 }

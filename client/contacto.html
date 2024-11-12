@@ -139,19 +139,19 @@
     <section class="container my-5">
         <div class="card p-4 shadow-sm rounded" style="background-color: #e9f5ff;">
             <h2 class="text-center mb-4" style="font-family: 'Righteous', sans-serif; color: #007bff;">Contáctanos</h2>
-            <form action="/contacto" method="POST">
+            <form action="/contacto.html" method="post">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre Completo</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo Electrónico</label>
-                    <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico"
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa tu correo electrónico"
                         required>
                 </div>
                 <div class="mb-3">
                     <label for="mensaje" class="form-label">Mensaje</label>
-                    <textarea class="form-control" id="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea>
+                    <textarea class="form-control" id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Enviar Mensaje</button>
             </form>
