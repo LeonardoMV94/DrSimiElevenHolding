@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "nombre": "Completo Italiano",
+        "descripcion": "Hot dog con palta, tomate y mayonesa.",
+        "precio": 2500,
+        "promocion": true
+    },
+    {
+        "id": 2,
+        "nombre": "Chacarero",
+        "descripcion": "Sandwich con carne, porotos verdes, ají y tomate.",
+        "precio": 4500,
+        "promocion": false
+    },
+    {
+        "id": 3,
+        "nombre": "Barros Luco",
+        "descripcion": "Sandwich de carne y queso derretido.",
+        "precio": 4000,
+        "promocion": true
+    },
+    {
+        "id": 4,
+        "nombre": "Barros Jarpa",
+        "descripcion": "Sandwich de jamón y queso derretido.",
+        "precio": 3500,
+        "promocion": false
+    },
+    {
+        "id": 5,
+        "nombre": "Empanada de Pino",
+        "descripcion": "Empanada rellena de carne, cebolla, huevo y aceitunas.",
+        "precio": 2000,
+        "promocion": true
+    },
+    {
+        "id": 6,
+        "nombre": "Papas Fritas",
+        "descripcion": "Porción de papas fritas crocantes.",
+        "precio": 1500,
+        "promocion": false
+    },
+    {
+        "id": 7,
+        "nombre": "Sopaipillas",
+        "descripcion": "Frituras de masa de harina y zapallo.",
+        "precio": 800,
+        "promocion": true
+    },
+    {
+        "id": 8,
+        "nombre": "Mote con Huesillos",
+        "descripcion": "Bebida dulce con trigo mote y duraznos deshidratados.",
+        "precio": 1200,
+        "promocion": false
+    },
+    {
+        "id": 9,
+        "nombre": "Chorrillana",
+        "descripcion": "Papas fritas con carne, huevo y cebolla frita.",
+        "precio": 5500,
+        "promocion": true
+    },
+    {
+        "id": 10,
+        "nombre": "Hamburguesa Chilena",
+        "descripcion": "Hamburguesa con palta, tomate, lechuga y mayonesa.",
+        "precio": 3000,
+        "promocion": false
+    }
+]
